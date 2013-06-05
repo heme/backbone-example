@@ -1,0 +1,29 @@
+    <form id="employeeDetail" class="disabled js-data-model span6" style="position:fixed;">
+      <fieldset class="well well-large">
+        <legend class="thumbnail"><i class="icon-chevron-right"></i>&nbsp;Employee Details</legend>
+        <img data-bind="employee_photo" src="" class="emp-photo img-polaroid">
+
+        <label>First Name</label>
+        <input name="first_name" type="text" data-bind="first_name" />
+
+        <label>Last Name</label>
+        <input name="last_name" type="text" data-bind="last_name" />
+
+        <label>Title</label>
+        <input name="JobTitle" type="text" data-bind="JobTitle" />
+
+        <label>Company</label>
+        <input name="CompanyName" type="text" data-bind="CompanyName" />
+
+        <label>Department</label>
+        <input name="Department" type="text" data-bind="Department" />
+
+        <label>Email</label>
+        <input name="InternetAddress" type="text" data-bind="InternetAddress" />
+
+        <hr noshade="noshade" />
+        <button id="btnEdit" type="button" class="btn">Edit</button>
+        <button id="btnSave" type="button" class="btn btn-primary disabled">Save</button>
+
+      </fieldset>
+    </form>
