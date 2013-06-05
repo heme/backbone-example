@@ -50,7 +50,7 @@ if(!empty($person['json'])) {
 	exit($person['json']);
 }
 
-//GET BTS DIR PAGE
+//GET DIR PAGE
 $curl = curl_init(); 
 curl_setopt($curl, CURLOPT_URL, $person['link']); 
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
