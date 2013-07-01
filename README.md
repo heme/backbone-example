@@ -9,6 +9,6 @@ Basic Backbone Tutorial - Company Directory
 1. Models
 2. Collections
 3. Views
-   * Templates - DOM Rendering with Transparency
+   * Templates - DOM Rendering with [Transparency](https://github.com/leonidas/transparency)
 4. Events
 5. Routers
