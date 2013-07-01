@@ -8,16 +8,26 @@
 
 */
 
+// Configure jQuery
+$.ajaxSetup({
+    headers: {"X-Requested-With": "XMLHttpRequest"},
+    dataType : 'json',
+    crossDomain: true
+});
+$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+    options.url = '' + options.url; // Cross Domain API URL
+});
+
 $(function() { //(document).ready
 
     // Data - Model
     var Employee = Backbone.Model.extend({
-      urlRoot: '/api/employee'
+      urlRoot: '/api/employee/'
     });
 
     // Data - Collection
     var Employees = Backbone.Collection.extend({
-      url: '/api/employees',
+      url: '/api/employees/',
       model: Employee
     });
 

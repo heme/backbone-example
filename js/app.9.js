@@ -12,33 +12,42 @@
 
 */
 
-$(function() { //(document).ready
-
-    //jQuery Plugin
-    $.fn.serializeObject = function() {
-      var o = {};
-      var a = this.serializeArray();
-      $.each(a, function() {
-          if (o[this.name] !== undefined) {
-              if (!o[this.name].push) {
-                  o[this.name] = [o[this.name]];
-              }
-              o[this.name].push(this.value || '');
-          } else {
-              o[this.name] = this.value || '';
+// Configure jQuery
+$.ajaxSetup({
+    headers: {"X-Requested-With": "XMLHttpRequest"},
+    dataType : 'json',
+    crossDomain: true
+});
+$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+    options.url = '' + options.url; // Cross Domain API URL
+});
+//jQuery Plugin
+$.fn.serializeObject = function() {
+  var o = {};
+  var a = this.serializeArray();
+  $.each(a, function() {
+      if (o[this.name] !== undefined) {
+          if (!o[this.name].push) {
+              o[this.name] = [o[this.name]];
           }
-      });
-      return o;
-    };
+          o[this.name].push(this.value || '');
+      } else {
+          o[this.name] = this.value || '';
+      }
+  });
+  return o;
+};
+
+$(function() { //(document).ready
 
     // Data - Model
     var Employee = Backbone.Model.extend({
-      urlRoot: '/api/employee'
+      urlRoot: '/api/employee/'
     });
 
     // Data - Collection
     var Employees = Backbone.Collection.extend({
-      url: '/api/employees',
+      url: '/api/employees/',
       model: Employee
     });
 
@@ -116,7 +125,6 @@ $(function() { //(document).ready
         },
         enableEdit: function() {
             $('#employeeDetail, #btnSave').removeClass('disabled');
-
         },
         save: function() {
             var data = $('form#employeeDetail').serializeObject();
@@ -124,19 +132,13 @@ $(function() { //(document).ready
             var jqXHR = this.model.save();
 
             jqXHR.done(function(data, textStatus, jqXHR){
-                alert(textStatus);
+                console.log(textStatus);
             });
 
             jqXHR.fail(function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
                 console.log(JSON.parse(jqXHR.responseText));
             });
-
-            /*jqXHR.always(function(data_jqXHR, textStatus, jqXHR_errorThrown){
-                console.log(data_jqXHR);
-                console.log(textStatus);
-                console.log(jqXHR_errorThrown);
-            });*/
         }
     });
 
