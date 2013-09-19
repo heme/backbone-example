@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Backbone.js Overview by heme</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Backbone.js Overview</h1>
+        <p>Overview of Basic Backbone.js Concepts</p>
+
+        <p class="view"><a href="https://github.com/heme/backbone-example">View the Project on GitHub <small>heme/backbone-example</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/heme/backbone-example/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/heme/backbone-example/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/heme/backbone-example">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="backbonejs-concepts" class="anchor" href="#backbonejs-concepts"><span class="octicon octicon-link"></span></a>Backbone.js Concepts</h1>
+
+<p>Backbone.js provides structure to web applications in 4 ways...</p>
+
+<ol>
+<li>Models &amp; Collections (Data Structures)</li>
+<li>Event System (Subscribe &amp; Trigger)</li>
+<li>Views (Controls Data &amp; Templates)</li>
+<li>Routers (Application State in URL)</li>
+</ol><h3>
+<a name="1-models--collections" class="anchor" href="#1-models--collections"><span class="octicon octicon-link"></span></a>1. Models &amp; Collections</h3>
+
+<ul>
+<li>Models contain the interactive data representing an object/resource. </li>
+<li>Collections are ordered sets of models.</li>
+</ul><h6>
+<a name="create-a-model" class="anchor" href="#create-a-model"><span class="octicon octicon-link"></span></a>Create a Model:</h6>
+
+<div class="highlight highlight-JavaScript"><pre>
+    <span class="c1">// Model</span>
+    <span class="kd">var</span> <span class="nx">Employee</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+      <span class="nx">urlRoot</span><span class="o">:</span> <span class="s1">'/employee/'</span>
+    <span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">employee</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">();</span>
+</pre></div>
+
+<h6>
+<a name="create-a-collection" class="anchor" href="#create-a-collection"><span class="octicon octicon-link"></span></a>Create a Collection:</h6>
+
+<div class="highlight highlight-JavaScript"><pre>    <span class="c1">// Collection</span>
+    <span class="kd">var</span> <span class="nx">Employees</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s1">'/employee'</span><span class="p">,</span>
+      <span class="nx">model</span><span class="o">:</span> <span class="nx">Employee</span>
+    <span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">employees</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employees</span><span class="p">();</span>
+</pre></div>
+
+<h3>
+<a name="2-event-system" class="anchor" href="#2-event-system"><span class="octicon octicon-link"></span></a>2. Event System</h3>
+
+<ul>
+<li> The Backbone.js event module gives any object the ability to bind and trigger custom named events.</li>
+</ul><h6>
+<a name="listen-to-a-model" class="anchor" href="#listen-to-a-model"><span class="octicon octicon-link"></span></a>Listen to a Model:</h6>
+
+<div class="highlight highlight-JavaScript"><pre>    <span class="c1">// create an instance of the employee model</span>
+    <span class="kd">var</span> <span class="nx">newHire</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">();</span>
+
+    <span class="c1">// create a generic JavaScript object and add a function to it</span>
+    <span class="kd">var</span> <span class="nx">im_listening</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">im_listening</span><span class="p">.</span><span class="nx">processData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s1">'The new employee'</span><span class="nx">s</span> <span class="nx">name</span> <span class="nx">is</span><span class="o">:</span> <span class="s1">' + newHire.get('</span><span class="nx">FirstName</span><span class="s1">') + newHire.get('</span><span class="nx">LastName</span><span class="s1">'))</span>
+<span class="s1">    };</span>
+
+<span class="s1">    // extend the generic JavaScript object with Backbone.js'</span><span class="nx">s</span> <span class="nx">event</span> <span class="nx">object</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">im_listening</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Events</span><span class="p">);</span>
+
+    <span class="c1">// tell our object to listen to the model's sync event</span>
+    <span class="nx">im_listening</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="nx">newHire</span><span class="p">,</span> <span class="s1">'sync'</span><span class="p">,</span> <span class="nx">im_listening</span><span class="p">.</span><span class="nx">processData</span><span class="p">);</span>
+
+    <span class="c1">// fetch data for that model from API, will trigger the "sync" event</span>
+    <span class="nx">newHire</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span><span class="mi">136</span><span class="p">);</span>
+    <span class="nx">newHire</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
+</pre></div>
+
+<h3>
+<a name="3-views" class="anchor" href="#3-views"><span class="octicon octicon-link"></span></a>3. Views</h3>
+
+<ul>
+<li>Backbone.js views control the interaction between the UI &amp; Models/Collections. </li>
+</ul><h6>
+<a name="create-a-view" class="anchor" href="#create-a-view"><span class="octicon octicon-link"></span></a>Create a View:</h6>
+
+<div class="highlight highlight-JavaScript"><pre>    <span class="c1">// View - Detail</span>
+    <span class="kd">var</span> <span class="nx">EmployeeDetailView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">'click #btnLoad'</span><span class="o">:</span> <span class="s1">'loadEmployee'</span>
+        <span class="p">},</span>
+        <span class="nx">el</span><span class="o">:</span> <span class="s1">'#employeeViewContainer'</span><span class="p">,</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Employee</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">'sync'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">loadEmployee</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#employeeID'</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nx">id</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'FirstName'</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' '</span> 
+                <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'LastName'</span><span class="p">);</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">'#employeeName'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">employeeDetailView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmployeeDetailView</span><span class="p">();</span>
+</pre></div>
+
+#employeeViewContainer
+    ID: Load
+    <h2>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a> </h2>
+<h3>
+<a name="4-routers" class="anchor" href="#4-routers"><span class="octicon octicon-link"></span></a>4. Routers</h3>
+
+<ul>
+<li>Backbone.js Routers provide linkable, bookmarkable, shareable URLs for important locations within the app.</li>
+</ul><div class="highlight highlight-JavaScript"><pre>    <span class="c1">// Application Router</span>
+    <span class="kd">var</span> <span class="nx">Router</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">routes</span><span class="o">:</span> <span class="p">{</span>
+            <span class="c1">// 'URN in address bar' : 'function on this object to call when URL matches'</span>
+            <span class="s1">''</span><span class="o">:</span> <span class="s2">"index"</span><span class="p">,</span> <span class="c1">// http://application.com/</span>
+            <span class="s1">'employee/:id'</span><span class="o">:</span> <span class="s1">'employee'</span> <span class="c1">// http://application.com/employee/6</span>
+        <span class="p">},</span>
+        <span class="nx">index</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">employeeListView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmployeeListView</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="nx">employee</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">employeeDetailView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EmployeeDetailView</span><span class="p">({</span><span class="s1">'id'</span><span class="o">:</span><span class="nx">id</span><span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/heme">heme</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
