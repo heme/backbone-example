@@ -19,7 +19,7 @@ $.ajaxSetup({
     crossDomain: true
 });
 $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-    options.url = '' + options.url; // Cross Domain API URL
+    options.url = '' + options.url;
 });
 //jQuery Plugin
 $.fn.serializeObject = function() {
@@ -38,16 +38,16 @@ $.fn.serializeObject = function() {
   return o;
 };
 
-$(function() { //(document).ready
+$(function() { // document ready
 
     // Data - Model
     var Employee = Backbone.Model.extend({
-      urlRoot: '/api/employee/'
+      urlRoot: '/employee/'
     });
 
     // Data - Collection
     var Employees = Backbone.Collection.extend({
-      url: '/api/employees/',
+      url: '/employee',
       model: Employee
     });
 

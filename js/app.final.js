@@ -9,6 +9,7 @@
     Highlight item in list from Route
     Highlight selected item when render is done
     Add Edit & Save Button, Save Data back to Server
+    Added a New Button
 
 */
 
@@ -19,7 +20,7 @@ $.ajaxSetup({
     crossDomain: true
 });
 $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-    options.url = '' + options.url; // Cross Domain API URL
+    options.url = '' + options.url;
 });
 //jQuery Plugin
 $.fn.serializeObject = function() {
@@ -38,22 +39,23 @@ $.fn.serializeObject = function() {
   return o;
 };
 
-$(function() { //(document).ready
+$(function() { // document ready
 
     // Data - Model
     var Employee = Backbone.Model.extend({
-      urlRoot: '/api/employee/'
+      urlRoot: '/employee/'
     });
 
     // Data - Collection
     var Employees = Backbone.Collection.extend({
-      url: '/api/employees/',
+      url: '/employee',
       model: Employee
     });
 
     // View - List
     var EmployeeListView = Backbone.View.extend({
         events: {
+            'click #btnNew': 'clickNew',
             'click tbody tr': 'clickItem'
         },
         initialize: function() {
@@ -76,6 +78,10 @@ $(function() { //(document).ready
             this.$el.find('.js-data-model').render(data, this.directives);
             $('#left_column').empty().append(this.$el);
             this.setSelectedItem();
+        },
+        clickNew: function(event) {
+            event.preventDefault();
+            router.navigate('/new', {trigger: true, replace: false});
         },
         clickItem: function(event) {
             event.preventDefault();
@@ -104,6 +110,12 @@ $(function() { //(document).ready
                 this.model.fetch();
                 events.trigger('employeeDetailView:show',{id: options.id});
         },
+        new: function() {
+                events.trigger('employeeDetailView:show',{id: 'new'});
+                this.model = new Employee();
+                this.render();
+                this.enableEdit();
+        },
         directives: {
             employee_photo: {
                 src: function(element){
@@ -125,6 +137,7 @@ $(function() { //(document).ready
         },
         enableEdit: function() {
             $('#employeeDetail, #btnSave').removeClass('disabled');
+            $('#btnEdit').addClass('disabled');
         },
         save: function() {
             var data = $('form#employeeDetail').serializeObject();
@@ -136,8 +149,10 @@ $(function() { //(document).ready
             });
 
             jqXHR.fail(function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseText);
+                console.log(textStatus);
                 console.log(errorThrown);
-                console.log(JSON.parse(jqXHR.responseText));
+                //console.log(JSON.parse(jqXHR.responseText));
             });
         }
     });
@@ -146,11 +161,16 @@ $(function() { //(document).ready
     var Router = Backbone.Router.extend({
         routes: {
             '': "index",
-            "employee/:id": "employee",
+            'new':'new',
+            'employee/:id': 'employee',
             '*path':  'defaultRoute'
         },
         index: function() {
             userEditView.clear();
+        },
+        new: function() {
+            userEditView.clear();
+            userEditView.new();
         },
         employee: function(id) {
             userEditView.show({'id':id});

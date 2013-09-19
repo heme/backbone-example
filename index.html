@@ -3,14 +3,71 @@
 <head>
 <meta charset="utf-8">
 <title>Company Directory</title>
+
+<link href="/css/bootstrap.css" rel="stylesheet">
+<link href="/css/docs.css" rel="stylesheet">
 <link href="/css/main.css" rel="stylesheet">
-<link rel="shortcut icon" href="/img/favicon.png">
 
 <script src="/js/jquery/jquery.min.js"></script>
 <script src="/js/lodash/dist/lodash.underscore.min.js"></script>
 <script src="/js/transparency/dist/transparency.min.js"></script>
 <script src="/js/backbone/backbone-min.js"></script>
 <script src="/js/bootstrap/docs/assets/js/bootstrap.min.js"></script>
+<script src="/js/app.final.js"></script>
+
+<script type="text/template" id="listTemplate">
+    <p><button id="btnNew" type="button" class="btn">New Employee</button></p>
+    <table id="employeeList" class="js-collection table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th width="40">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody class="js-data-model">
+            <tr>
+                <td><a data-bind="id" href="/employee/" class="js-view-record"></a></td>
+                <td data-bind="FirstName"></td>
+                <td data-bind="LastName"></td>
+                <td class="align-right"><i class="icon-chevron-right"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+
+<script type="text/template" id="detailTemplate">
+    <form id="employeeDetail" class="disabled js-data-model span6" style="position:fixed;">
+      <fieldset class="well well-large">
+        <legend class="thumbnail"><i class="icon-chevron-right"></i>&nbsp;Employee Details</legend>
+        <img data-bind="employee_photo" src="" class="emp-photo img-polaroid">
+
+        <label>First Name</label>
+        <input name="FirstName" type="text" data-bind="FirstName" />
+
+        <label>Last Name</label>
+        <input name="LastName" type="text" data-bind="LastName" />
+
+        <label>Title</label>
+        <input name="JobTitle" type="text" data-bind="JobTitle" />
+
+        <label>Company</label>
+        <input name="CompanyName" type="text" data-bind="CompanyName" />
+
+        <label>Department</label>
+        <input name="Department" type="text" data-bind="Department" />
+
+        <label>Email</label>
+        <input name="InternetAddress" type="text" data-bind="InternetAddress" />
+
+        <hr noshade="noshade" />
+        <button id="btnEdit" type="button" class="btn">Edit</button>
+        <button id="btnSave" type="button" class="btn btn-primary disabled">Save</button>
+
+      </fieldset>
+    </form>
+</script>
 
 </head>
 
