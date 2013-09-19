@@ -1,8 +1,8 @@
 backbone-example
 ===============
-Basic Backbone Example App - Company Directory
+Basic Backbone.js Example App - Company Directory
 
-**GitHub Repo:** [https://github.com/heme/backbone-example](https://github.com/heme/backbone-example)
+For a breakdown of Backbone.js concepts go here: [http://heme.github.io/backbone-example](http://heme.github.io/backbone-example)
 
 ### Concepts Covered:
 
