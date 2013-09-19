@@ -9,7 +9,7 @@ For a breakdown of Backbone.js concepts go here: [http://heme.github.io/backbone
     1. Models
     2. Collections
     3. Views
-       * Templates - DOM Rendering with [Transparency](https://github.com/leonidas/transparency)
+       * Templates - DOM Rendering done with the Transparency library here: https://github.com/leonidas/transparency
     4. Events
     5. Routers
 
