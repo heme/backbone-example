@@ -115,14 +115,14 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="s1">'sync'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
         <span class="p">},</span>
         <span class="nx">loadEmployee</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#employeeID'</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">'#employeeID'</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nx">id</span><span class="p">);</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">fetch</span><span class="p">();</span>
         <span class="p">},</span>
         <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'FirstName'</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' '</span> 
                 <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'LastName'</span><span class="p">);</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s1">'#employeeName'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$</span><span class="p">(</span><span class="s1">'#employeeName'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">});</span>
 
