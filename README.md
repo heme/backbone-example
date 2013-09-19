@@ -13,6 +13,4 @@ Basic Backbone Example App - Company Directory
     4. Events
     5. Routers
 
-### NOTE:
-
-The api for this application is not included in this repo. I intend to place something at [https://github.com/heme/compdir-api](https://github.com/heme/compdir-api) that can be used.
+**NOTE:** The api for this application is not included in this repo. I intend to place something at [https://github.com/heme/compdir-api](https://github.com/heme/compdir-api) that can be used.
